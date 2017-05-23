@@ -3,6 +3,7 @@ package com.tdd.katas.dlwob.microservices.vehicleservice.service;
 import com.tdd.katas.dlwob.microservices.vehicleservice.model.VehicleData;
 import org.junit.Test;
 
+import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -23,6 +24,17 @@ public class MockVehicleDataServiceImplTest {
         assertEquals("sample-vehicle-plate-number",actualVehicleData.getPlateNumber());
 
     }
+
+    @Test
+    public void Return_Null_For_Non_Existent_Vin_Code(){
+
+        MockVehicleDataServiceImpl service=new MockVehicleDataServiceImpl();
+
+        VehicleData actualVehicleData=service.getVehicleData("sample-not-exist");
+
+        assertNull(actualVehicleData);
+    }
+
 
 
 

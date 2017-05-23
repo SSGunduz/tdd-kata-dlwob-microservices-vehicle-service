@@ -2,10 +2,13 @@ package com.tdd.katas.dlwob.microservices.vehicleservice.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tdd.katas.dlwob.microservices.vehicleservice.model.VehicleInformation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
 
+@Service
 public class MockVehicleServiceImpl implements VehicleService {
 
     public static final String SAMPLE_VEHICLE_VIN_CODE = "sample-vehicle-vin-code";

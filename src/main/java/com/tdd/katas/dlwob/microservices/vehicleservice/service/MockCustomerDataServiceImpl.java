@@ -8,6 +8,6 @@ import com.tdd.katas.dlwob.microservices.vehicleservice.model.CustomerData;
 public class MockCustomerDataServiceImpl {
     public CustomerData getCustomerData(String s) {
 
-        throw new UnsupportedOperationException("Not implemented yet");
+     return null;
     }
 }

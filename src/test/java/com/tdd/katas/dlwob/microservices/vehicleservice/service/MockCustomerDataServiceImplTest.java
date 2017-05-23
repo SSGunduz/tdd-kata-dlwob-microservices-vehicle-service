@@ -18,7 +18,6 @@ public class MockCustomerDataServiceImplTest {
 
         CustomerData actualCustomerData=service.getCustomerData("Non existent customer id");
         assertNull(actualCustomerData);
-
     }
 
 

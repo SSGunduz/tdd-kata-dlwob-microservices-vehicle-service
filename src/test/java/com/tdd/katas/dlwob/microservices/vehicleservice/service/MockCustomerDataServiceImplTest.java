@@ -31,7 +31,7 @@ public class MockCustomerDataServiceImplTest {
         assertNotNull(actualCustomerData);
         assertEquals("sample-customer-id",actualCustomerData.getId());
         assertEquals("Sergio",actualCustomerData.getName());
-        assertEquals("Osuna Medina",actualCustomerData.getName());
+        assertEquals("Osuna Medina",actualCustomerData.getSurnames());
     }
 
 }

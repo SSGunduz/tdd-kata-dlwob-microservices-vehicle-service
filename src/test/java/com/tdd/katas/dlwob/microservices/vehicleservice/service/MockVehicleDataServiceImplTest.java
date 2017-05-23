@@ -1,6 +1,7 @@
 package com.tdd.katas.dlwob.microservices.vehicleservice.service;
 
 import com.tdd.katas.dlwob.microservices.vehicleservice.model.VehicleData;
+import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertNull;
@@ -12,10 +13,17 @@ import static org.junit.Assert.assertNotNull;
  */
 public class MockVehicleDataServiceImplTest {
 
+    private MockVehicleDataServiceImpl service;
+
+    @Before
+    public void setup(){
+
+        service=new MockVehicleDataServiceImpl();
+    }
+
+
     @Test
     public void  Return_Valid_Data_For_An_Existent_Vehicle(){
-
-        MockVehicleDataServiceImpl service=new MockVehicleDataServiceImpl();
 
         VehicleData actualVehicleData= service.getVehicleData("sample-vehicle-vin-code");
 
@@ -28,10 +36,7 @@ public class MockVehicleDataServiceImplTest {
     @Test
     public void Return_Null_For_Non_Existent_Vin_Code(){
 
-        MockVehicleDataServiceImpl service=new MockVehicleDataServiceImpl();
-
         VehicleData actualVehicleData=service.getVehicleData("sample-not-exist");
-
         assertNull(actualVehicleData);
     }
 

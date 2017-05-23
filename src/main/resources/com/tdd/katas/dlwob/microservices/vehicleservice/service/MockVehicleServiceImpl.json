@@ -1,8 +1,8 @@
 {
 	"vin": "sample-vehicle-vin-code",
 	"vehicleData": {
-
-
+		"modelId": "sample-vehicle-model-id",
+		"plateNumber": "sample-vehicle-plate-number"
 	},
 	"customerData": {
 		"id": "sample-customer-id",

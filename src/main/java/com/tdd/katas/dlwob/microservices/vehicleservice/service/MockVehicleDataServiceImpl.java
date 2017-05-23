@@ -10,49 +10,22 @@ import java.io.InputStream;
 /**
  * Created by Hexad GmbH on 23/05/2017.
  */
-public class MockVehicleDataServiceImpl implements VehicleDataService{
+public class MockVehicleDataServiceImpl extends AbstractMockServiceImpl<VehicleData> implements VehicleDataService{
 
     @Override
     public VehicleData getVehicleData(String vin)  {
 
         if(SAMPLE_VEHICLE_VIN_CODE.equals(vin))
-            return sampleVehicleData;
+            return dtoObject;
         else
             return null;
-
 
     }
 
     public static final String SAMPLE_VEHICLE_VIN_CODE = "sample-vehicle-vin-code";
 
     public MockVehicleDataServiceImpl() {
-        readJsonFile();
-    }
-
-    private VehicleData sampleVehicleData;
-
-    private void readJsonFile() {
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        String resourceName = getClass().getSimpleName() + ".json";
-
-        InputStream resourceInputStream = null;
-        try {
-            resourceInputStream = getClass().getResourceAsStream(resourceName);
-
-            VehicleData viData = objectMapper.readValue(resourceInputStream, VehicleData.class);
-
-            sampleVehicleData = viData;
-        } catch (Exception e) {
-            throw new IllegalStateException("Unexpected error reading from JSON file", e);
-        } finally {
-            if (resourceInputStream!=null) {
-                try {
-                    resourceInputStream.close();
-                } catch (IOException e) {
-                }
-            }
-        }
+           super(VehicleData.class);
     }
 
 }

@@ -2,12 +2,14 @@ package com.tdd.katas.dlwob.microservices.vehicleservice.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.tdd.katas.dlwob.microservices.vehicleservice.model.PartData;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by Hexad GmbH on 24/05/2017.
  */
+@Service
 public class MockPartDataServiceImpl extends AbstractMockServiceImpl<List<PartData>> implements PartDataService {
 
     protected MockPartDataServiceImpl() {

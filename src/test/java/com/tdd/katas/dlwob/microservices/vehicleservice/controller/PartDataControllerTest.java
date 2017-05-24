@@ -44,4 +44,21 @@ public class PartDataControllerTest {
         verify(partDataService).getPartData(ANY_VIN);
 
     }
+
+    @Test
+    public void Returns_404_For_Non_existent_vin() throws Exception {
+
+        final String NON_EXISTENT_VIN="NON_EXISTENT_VIN";
+
+        given(partDataService.getPartData(NON_EXISTENT_VIN)).willReturn(null);
+
+        mockMvc.perform(
+                get(PartDataController.URL_MAPPING+"/{vinCode}",NON_EXISTENT_VIN)
+        )
+                .andExpect(status().isNotFound());
+
+        verify(partDataService).getPartData(NON_EXISTENT_VIN);
+
+    }
+
 }

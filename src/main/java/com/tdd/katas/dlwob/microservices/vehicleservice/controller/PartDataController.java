@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 
 /**
  * Created by Hexad GmbH on 24/05/2017.
@@ -26,12 +28,18 @@ public class PartDataController {
     @RequestMapping("/{vinCode}")
     public ResponseEntity<PartData> getPartData(@PathVariable String vinCode){
 
+        List<PartData> actualPartDataList;
+
         try{
-            partDataService.getPartData(vinCode);
+         actualPartDataList=  partDataService.getPartData(vinCode);
 
         }catch(Exception e)
         {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        if(actualPartDataList==null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         throw new UnsupportedOperationException("NOT IMPLEMENTED YET");

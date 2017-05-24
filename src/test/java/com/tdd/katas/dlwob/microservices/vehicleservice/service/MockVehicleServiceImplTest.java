@@ -24,7 +24,7 @@ public class MockVehicleServiceImplTest {
         assertEquals("sample-vehicle-plate-number", vinfo.getVehicleData().getPlateNumber());
 
         assertNotNull(vinfo.getCustomerData());
-        assertEquals("sample-customer-id", vinfo.getCustomerData().getId());
+        assertEquals(MockServicesConstants.SAMPLE_CUSTOMER_ID, vinfo.getCustomerData().getId());
         assertEquals("Sergio", vinfo.getCustomerData().getName());
         assertEquals("Osuna Medina", vinfo.getCustomerData().getSurnames());
 

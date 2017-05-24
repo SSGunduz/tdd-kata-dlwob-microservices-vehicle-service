@@ -36,6 +36,6 @@ public class MockVehicleCustomerDataServiceImplTest {
 
         assertNotNull(actualVehicleCustomerData);
 
-        assertEquals("sample-customer-id",actualVehicleCustomerData.getCustomerId());
+        assertEquals(MockServicesConstants.SAMPLE_CUSTOMER_ID,actualVehicleCustomerData.getCustomerId());
     }
 }

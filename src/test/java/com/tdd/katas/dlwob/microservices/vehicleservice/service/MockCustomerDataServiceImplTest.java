@@ -31,10 +31,10 @@ public class MockCustomerDataServiceImplTest {
     @Test
     public void Returns_Valid_Data_For_An_Existent_Customer_Id(){
 
-        CustomerData actualCustomerData=service.getCustomerData("sample-customer-id");
+        CustomerData actualCustomerData=service.getCustomerData(MockServicesConstants.SAMPLE_CUSTOMER_ID);
 
         assertNotNull(actualCustomerData);
-        assertEquals("sample-customer-id",actualCustomerData.getId());
+        assertEquals(MockServicesConstants.SAMPLE_CUSTOMER_ID,actualCustomerData.getId());
         assertEquals("Sergio",actualCustomerData.getName());
         assertEquals("Osuna Medina",actualCustomerData.getSurnames());
     }

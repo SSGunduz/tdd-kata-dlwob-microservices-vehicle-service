@@ -22,7 +22,7 @@ public class VehicleDataController {
     private VehicleDataService vehicleDataService;
 
     @RequestMapping("/{vinCode}")
-    public ResponseEntity getVehicleData(@PathVariable  String vinCode){
+    public ResponseEntity<VehicleData> getVehicleData(@PathVariable  String vinCode){
         VehicleData vehicleData;
 
         try {
@@ -30,12 +30,13 @@ public class VehicleDataController {
             vehicleData=vehicleDataService.getVehicleData(vinCode);
 
         }catch(Exception e){
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         if(vehicleData==null)
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        else
+            return new ResponseEntity<>(vehicleData,HttpStatus.OK);
 
-        throw new UnsupportedOperationException("Not implemented");
     }
 }

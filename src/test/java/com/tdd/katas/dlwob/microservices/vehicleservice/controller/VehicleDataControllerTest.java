@@ -1,5 +1,6 @@
 package com.tdd.katas.dlwob.microservices.vehicleservice.controller;
 
+import com.tdd.katas.dlwob.microservices.vehicleservice.model.VehicleData;
 import com.tdd.katas.dlwob.microservices.vehicleservice.service.VehicleDataService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,10 +13,12 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import javax.validation.constraints.Null;
 
+import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -55,6 +58,25 @@ public class VehicleDataControllerTest {
         ).andExpect(status().isNotFound());
 
         verify(vehicleDataService).getVehicleData(NON_EXISTENT_VIN);
+    }
+
+    @Test
+    public void Returns_valid_data_for_existent_vin_code() throws Exception{
+        String EXISTENT_VIN="EXISTENT_VIN";
+
+        VehicleData expectedVehicleData=new VehicleData();
+        expectedVehicleData.setModelId("Model S");
+        expectedVehicleData.setPlateNumber("23 ajk 34");
+
+        given(vehicleDataService.getVehicleData(EXISTENT_VIN)).willReturn(expectedVehicleData);
+
+        mockMvc.perform(
+                get(VehicleDataController.URL_MAPPING+"/{vinCode}",EXISTENT_VIN)
+        ).andExpect(status().isOk())
+                .andExpect(jsonPath("$.modelId", is(expectedVehicleData.getModelId())))
+                .andExpect(jsonPath("$.plateNumber", is(expectedVehicleData.getPlateNumber())));
+
+        verify(vehicleDataService).getVehicleData(EXISTENT_VIN);
     }
 
 }

@@ -5,6 +5,6 @@ package com.tdd.katas.dlwob.microservices.vehicleservice.service;
  */
 public class MockVehicleCustomerDataServiceImpl {
     public  VehicleCustomerData getVehicleCustomerData(String s) {
-        throw new UnsupportedOperationException("NOT Implemented yet");
+        return null;
     }
 }

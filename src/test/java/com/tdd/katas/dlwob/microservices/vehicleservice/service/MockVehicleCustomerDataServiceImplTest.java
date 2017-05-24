@@ -10,7 +10,7 @@ import static org.junit.Assert.assertNull;
 public class MockVehicleCustomerDataServiceImplTest {
 
     @Test
-    public void Returne_Null_For_Non_Existent_Vin(){
+    public void Returns_Null_For_Non_Existent_Vin(){
 
         MockVehicleCustomerDataServiceImpl service=new MockVehicleCustomerDataServiceImpl();
 

@@ -1,6 +1,7 @@
 package com.tdd.katas.dlwob.microservices.vehicleservice.service;
 
 import com.tdd.katas.dlwob.microservices.vehicleservice.model.CustomerData;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -13,18 +14,22 @@ import static org.junit.Assert.assertNull;
 public class MockCustomerDataServiceImplTest {
 
 
+    private MockCustomerDataServiceImpl service;
+
+    @Before
+    public void setUp() throws Exception {
+        service = new MockCustomerDataServiceImpl();
+    }
+
     @Test
     public void Returns_Null_For_Non_Existent_Customer_Id(){
 
-        MockCustomerDataServiceImpl service=new MockCustomerDataServiceImpl();
-
-        CustomerData actualCustomerData=service.getCustomerData("Non existent customer id");
+        CustomerData actualCustomerData= service.getCustomerData("Non existent customer id");
         assertNull(actualCustomerData);
     }
 
     @Test
     public void Returns_Valid_Data_For_An_Existent_Customer_Id(){
-        MockCustomerDataServiceImpl service=new MockCustomerDataServiceImpl();
 
         CustomerData actualCustomerData=service.getCustomerData("sample-customer-id");
 

@@ -1,6 +1,7 @@
 package com.tdd.katas.dlwob.microservices.vehicleservice.service;
 
 import com.tdd.katas.dlwob.microservices.vehicleservice.model.PartData;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -14,10 +15,15 @@ import static org.junit.Assert.assertNull;
  */
 public class MockPartDataServiceImplTest {
 
+    private MockPartDataServiceImpl service;
+
+    @Before
+    public void setUp() throws Exception {
+        service = new MockPartDataServiceImpl();
+    }
+
     @Test
     public void Return_Null_For_Non_Existent_Vin_Code() {
-
-        MockPartDataServiceImpl service = new MockPartDataServiceImpl();
 
         List<PartData> actualPartDataList = service.getPartData("Non existent vin code");
 
@@ -26,7 +32,7 @@ public class MockPartDataServiceImplTest {
 
     @Test
     public void Returns_Valid_Data_For_Existent_Vin_Code(){
-        MockPartDataServiceImpl service=new MockPartDataServiceImpl();
+
 
         List<PartData> actualPartDataList=service.getPartData("sample-vehicle-vin-code");
 

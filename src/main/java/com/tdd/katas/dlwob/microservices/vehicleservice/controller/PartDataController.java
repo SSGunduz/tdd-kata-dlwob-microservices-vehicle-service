@@ -26,7 +26,7 @@ public class PartDataController {
     private PartDataService partDataService;
 
     @RequestMapping("/{vinCode}")
-    public ResponseEntity<PartData> getPartData(@PathVariable String vinCode){
+    public ResponseEntity<List<PartData>> getPartData(@PathVariable String vinCode){
 
         List<PartData> actualPartDataList;
 
@@ -41,8 +41,9 @@ public class PartDataController {
         if(actualPartDataList==null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        else
+            return new ResponseEntity<>(actualPartDataList,HttpStatus.OK);
 
-        throw new UnsupportedOperationException("NOT IMPLEMENTED YET");
 
     }
 

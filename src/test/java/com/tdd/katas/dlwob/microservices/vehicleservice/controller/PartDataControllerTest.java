@@ -84,7 +84,6 @@ public class PartDataControllerTest {
 
         given(partDataService.getPartData(EXISTENT_VIN)).willReturn(expectedPartDataList);
 
-
         mockMvc.perform(
                     get(PartDataController.URL_MAPPING+"/{vinCode}",EXISTENT_VIN)
                 )

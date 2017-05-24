@@ -10,6 +10,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import javax.validation.constraints.Null;
+
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
@@ -40,6 +42,19 @@ public class VehicleDataControllerTest {
         ).andExpect(status().isInternalServerError());
 
         verify(vehicleDataService).getVehicleData(ANY_VIN);
+    }
+
+    @Test
+    public void Returns_404_for_non_existent_vin_code() throws Exception {
+        String NON_EXISTENT_VIN="NON_EXISTENT_VIN";
+
+        given(vehicleDataService.getVehicleData(NON_EXISTENT_VIN)).willReturn(null);
+
+        mockMvc.perform(
+                get(VehicleDataController.URL_MAPPING+"/{vinCode}",NON_EXISTENT_VIN)
+        ).andExpect(status().isNotFound());
+
+        verify(vehicleDataService).getVehicleData(NON_EXISTENT_VIN);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.tdd.katas.dlwob.microservices.vehicleservice.controller;
 
+import com.tdd.katas.dlwob.microservices.vehicleservice.model.VehicleData;
 import com.tdd.katas.dlwob.microservices.vehicleservice.service.VehicleDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,13 +23,18 @@ public class VehicleDataController {
 
     @RequestMapping("/{vinCode}")
     public ResponseEntity getVehicleData(@PathVariable  String vinCode){
+        VehicleData vehicleData;
 
         try {
-            vehicleDataService.getVehicleData(vinCode);
+
+            vehicleData=vehicleDataService.getVehicleData(vinCode);
 
         }catch(Exception e){
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
+        if(vehicleData==null)
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
 
         throw new UnsupportedOperationException("Not implemented");
     }

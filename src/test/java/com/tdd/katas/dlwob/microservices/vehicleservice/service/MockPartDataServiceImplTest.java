@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 /**
@@ -22,5 +24,25 @@ public class MockPartDataServiceImplTest {
         assertNull(actualPartDataList);
     }
 
+    @Test
+    public void Returns_Valid_Data_For_Existent_Vin_Code(){
+        MockPartDataServiceImpl service=new MockPartDataServiceImpl();
+
+        List<PartData> actualPartDataList=service.getPartData("sample-vehicle-vin-code");
+
+        assertNotNull(actualPartDataList);
+
+        assertEquals(3,actualPartDataList.size());
+
+        assertEquals("sample-part-1-id",actualPartDataList.get(0).getId());
+        assertEquals("sample-part-1-description",actualPartDataList.get(0).getDescription());
+
+        assertEquals("sample-part-2-id",actualPartDataList.get(1).getId());
+        assertEquals("sample-part-2-description",actualPartDataList.get(1).getDescription());
+
+        assertEquals("sample-part-3-id",actualPartDataList.get(2).getId());
+        assertEquals("sample-part-3-description",actualPartDataList.get(2).getDescription());
+
+    }
 
 }

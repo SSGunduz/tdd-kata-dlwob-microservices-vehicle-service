@@ -12,7 +12,7 @@ public class MockVehicleCustomerDataServiceImpl extends AbstractMockServiceImpl<
     }
 
     public VehicleCustomerData getVehicleCustomerData(String vinCode) {
-        if("sample-vehicle-vin-code".equals(vinCode))
+        if(MockServicesConstants.SAMPLE_VEHICLE_VIN_CODE.equals(vinCode))
             return dtoObject;
         else
             return null;

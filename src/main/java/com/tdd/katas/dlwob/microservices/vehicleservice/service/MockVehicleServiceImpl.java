@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class MockVehicleServiceImpl extends AbstractMockServiceImpl<VehicleInformation> implements VehicleService {
 
-    public static final String SAMPLE_VEHICLE_VIN_CODE = "sample-vehicle-vin-code";
 
     public MockVehicleServiceImpl() {
         super(VehicleInformation.class);

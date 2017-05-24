@@ -25,7 +25,7 @@ public class MockVehicleDataServiceImplTest {
     @Test
     public void  Return_Valid_Data_For_An_Existent_Vehicle(){
 
-        VehicleData actualVehicleData= service.getVehicleData("sample-vehicle-vin-code");
+        VehicleData actualVehicleData= service.getVehicleData(MockServicesConstants.SAMPLE_VEHICLE_VIN_CODE);
 
         assertNotNull(actualVehicleData);
         assertEquals("sample-vehicle-model-id",actualVehicleData.getModelId());

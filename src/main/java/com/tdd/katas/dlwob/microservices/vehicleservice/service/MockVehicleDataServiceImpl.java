@@ -15,14 +15,14 @@ public class MockVehicleDataServiceImpl extends AbstractMockServiceImpl<VehicleD
     @Override
     public VehicleData getVehicleData(String vin)  {
 
-        if(SAMPLE_VEHICLE_VIN_CODE.equals(vin))
+        if(MockServicesConstants.SAMPLE_VEHICLE_VIN_CODE.equals(vin))
             return dtoObject;
         else
             return null;
 
     }
 
-    public static final String SAMPLE_VEHICLE_VIN_CODE = "sample-vehicle-vin-code";
+
 
     public MockVehicleDataServiceImpl() {
            super(VehicleData.class);

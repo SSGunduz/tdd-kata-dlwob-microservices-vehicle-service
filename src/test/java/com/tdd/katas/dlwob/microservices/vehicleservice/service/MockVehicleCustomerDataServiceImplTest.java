@@ -32,7 +32,7 @@ public class MockVehicleCustomerDataServiceImplTest {
     public void Returns_Valid_Data_For_Existent_Vin(){
 
 
-        VehicleCustomerData actualVehicleCustomerData=service.getVehicleCustomerData("sample-vehicle-vin-code");
+        VehicleCustomerData actualVehicleCustomerData=service.getVehicleCustomerData(MockServicesConstants.SAMPLE_VEHICLE_VIN_CODE);
 
         assertNotNull(actualVehicleCustomerData);
 

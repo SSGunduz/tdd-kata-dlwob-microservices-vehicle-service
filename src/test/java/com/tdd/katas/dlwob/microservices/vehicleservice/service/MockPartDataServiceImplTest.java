@@ -34,7 +34,7 @@ public class MockPartDataServiceImplTest {
     public void Returns_Valid_Data_For_Existent_Vin_Code(){
 
 
-        List<PartData> actualPartDataList=service.getPartData("sample-vehicle-vin-code");
+        List<PartData> actualPartDataList=service.getPartData(MockServicesConstants.SAMPLE_VEHICLE_VIN_CODE);
 
         assertNotNull(actualPartDataList);
 

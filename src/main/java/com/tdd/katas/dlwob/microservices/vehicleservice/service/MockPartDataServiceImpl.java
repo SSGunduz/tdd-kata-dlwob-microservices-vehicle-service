@@ -16,7 +16,7 @@ public class MockPartDataServiceImpl extends AbstractMockServiceImpl<List<PartDa
 
     public List<PartData> getPartData(String vinCode) {
 
-        if("sample-vehicle-vin-code".equals(vinCode))
+        if(MockServicesConstants.SAMPLE_VEHICLE_VIN_CODE.equals(vinCode))
             return dtoObject;
         else
             return null;

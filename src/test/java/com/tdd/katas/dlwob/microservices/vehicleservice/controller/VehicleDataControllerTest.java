@@ -42,5 +42,4 @@ public class VehicleDataControllerTest {
         verify(vehicleDataService).getVehicleData(ANY_VIN);
     }
 
-
 }

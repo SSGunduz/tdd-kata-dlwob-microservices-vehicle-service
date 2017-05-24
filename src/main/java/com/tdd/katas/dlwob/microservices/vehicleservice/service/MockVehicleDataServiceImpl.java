@@ -3,6 +3,7 @@ package com.tdd.katas.dlwob.microservices.vehicleservice.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tdd.katas.dlwob.microservices.vehicleservice.model.VehicleData;
 import com.tdd.katas.dlwob.microservices.vehicleservice.model.VehicleInformation;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,6 +11,7 @@ import java.io.InputStream;
 /**
  * Created by Hexad GmbH on 23/05/2017.
  */
+@Service
 public class MockVehicleDataServiceImpl extends AbstractMockServiceImpl<VehicleData> implements VehicleDataService{
 
     @Override

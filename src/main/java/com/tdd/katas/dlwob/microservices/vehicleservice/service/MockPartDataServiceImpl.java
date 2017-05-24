@@ -9,9 +9,9 @@ import java.util.List;
  */
 public class MockPartDataServiceImpl {
 
-    public List<PartData> getPartData(String s) {
+    public List<PartData> getPartData(String vinCode) {
 
-        throw new UnsupportedOperationException("UNDEFINED PART DATA OPERATION");
+        return null;
 
     }
 }

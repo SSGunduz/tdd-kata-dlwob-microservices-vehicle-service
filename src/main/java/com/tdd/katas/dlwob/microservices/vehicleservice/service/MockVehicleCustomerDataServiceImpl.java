@@ -1,10 +1,12 @@
 package com.tdd.katas.dlwob.microservices.vehicleservice.service;
 
 import com.tdd.katas.dlwob.microservices.vehicleservice.model.VehicleCustomerData;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by Hexad GmbH on 24/05/2017.
  */
+@Service
 public class MockVehicleCustomerDataServiceImpl extends AbstractMockServiceImpl<VehicleCustomerData> implements VehicleCustomerDataService {
 
     public MockVehicleCustomerDataServiceImpl() {

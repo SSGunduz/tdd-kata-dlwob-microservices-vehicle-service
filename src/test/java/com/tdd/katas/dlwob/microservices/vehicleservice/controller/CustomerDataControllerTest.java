@@ -47,4 +47,19 @@ public class CustomerDataControllerTest {
         verify(customerDataService).getCustomerData(ANY_CUSTOMER_ID);
     }
 
+    @Test
+    public void Returns_404_for_non_existent_customer_id() throws Exception{
+
+        final String NON_EXISTENT_CUSTOMER_ID="NON_EXISTENT_CUSTOMER_ID";
+
+        given(customerDataService.getCustomerData(NON_EXISTENT_CUSTOMER_ID)).willReturn(null);
+
+        mockMvc
+                .perform(
+                        get(CustomerDataController.URL_MAPPING+"/{customerId}",NON_EXISTENT_CUSTOMER_ID)
+                )
+                .andExpect(status().isNotFound());
+
+        verify(customerDataService).getCustomerData(NON_EXISTENT_CUSTOMER_ID);
+    }
 }

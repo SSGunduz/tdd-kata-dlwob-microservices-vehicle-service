@@ -37,7 +37,9 @@ public class CustomerDataController {
         if(customerData==null)
                 return new ResponseEntity<CustomerData>(HttpStatus.NOT_FOUND);
 
-        throw new UnsupportedOperationException("Not Implemented");
+        else
+            return new ResponseEntity<CustomerData>(customerData,HttpStatus.OK);
+
 
     }
 

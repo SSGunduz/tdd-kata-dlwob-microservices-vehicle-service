@@ -94,4 +94,30 @@ public class CustomerDataRestServiceProxyTest {
 
     }
 
+    @Test
+    public void Returns_valid_data_when_server_provides_valid_data(){
+
+        final String EXISTENT_CUSTOMER_ID="EXISTENT_CUSTOMER_ID";
+
+        String mockJsonResponse=
+                        "	{												 " +
+                        "		\"id\": \"EXISTENT_CUSTOMER_ID\",            " +
+                        "		\"name\": \"name 1\" ,                       " +
+                        "		\"surnames\": \"Surnames\"                   " +
+                        "	}                                                ";
+
+        server.expect(requestTo(CustomerDataController.URL_MAPPING+"/"+ EXISTENT_CUSTOMER_ID))
+                .andRespond(withSuccess(mockJsonResponse, MediaType.APPLICATION_JSON_UTF8));
+
+
+        CustomerData actualCustomerData=proxy.getCustomerData(EXISTENT_CUSTOMER_ID);
+
+        assertNotNull(actualCustomerData);
+        assertEquals(EXISTENT_CUSTOMER_ID,actualCustomerData.getId());
+        assertEquals("name 1",actualCustomerData.getName());
+        assertEquals("Surnames",actualCustomerData.getSurnames());
+
+        server.verify();
+
+    }
 }

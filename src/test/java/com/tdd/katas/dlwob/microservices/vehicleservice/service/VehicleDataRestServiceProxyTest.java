@@ -1,11 +1,10 @@
 package com.tdd.katas.dlwob.microservices.vehicleservice.service;
 
-import com.tdd.katas.dlwob.microservices.vehicleservice.controller.VehicleDataController;
 import com.tdd.katas.dlwob.microservices.vehicleservice.model.VehicleData;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.omg.PortableInterceptor.NON_EXISTENT;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,6 +25,9 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 @RestClientTest(VehicleDataRestServiceProxy.class)
 public class VehicleDataRestServiceProxyTest {
 
+    @Value("${services.vehicle-data-service.url}")
+    private String vehicleDataServiceUrl;
+
     @Autowired
     private MockRestServiceServer server;
 
@@ -44,7 +46,7 @@ public class VehicleDataRestServiceProxyTest {
 
         final String NON_EXISTENT_VIN_CODE="NON_EXISTENT_VIN_CODE";
 
-        server.expect(requestTo(VehicleDataController.URL_MAPPING+"/"+NON_EXISTENT_VIN_CODE))
+        server.expect(requestTo(vehicleDataServiceUrl+"/"+NON_EXISTENT_VIN_CODE))
                 .andRespond(withStatus(HttpStatus.NOT_FOUND));
 
         VehicleData vehicleData=proxy.getVehicleData(NON_EXISTENT_VIN_CODE);
@@ -59,7 +61,7 @@ public class VehicleDataRestServiceProxyTest {
 
         final String ANY_VIN_CODE="ANY_VIN_CODE";
 
-        server.expect(requestTo(VehicleDataController.URL_MAPPING+"/"+ ANY_VIN_CODE))
+        server.expect(requestTo(vehicleDataServiceUrl+"/"+ ANY_VIN_CODE))
                 .andRespond(withStatus(HttpStatus.INTERNAL_SERVER_ERROR));
 
         try{
@@ -78,7 +80,7 @@ public class VehicleDataRestServiceProxyTest {
 
         final String ANY_VIN_CODE="ANY_VIN_CODE";
 
-        server.expect(requestTo(VehicleDataController.URL_MAPPING+"/"+ ANY_VIN_CODE))
+        server.expect(requestTo(vehicleDataServiceUrl+"/"+ ANY_VIN_CODE))
                 .andRespond(withStatus(HttpStatus.BAD_REQUEST));
 
         try{
@@ -103,7 +105,7 @@ public class VehicleDataRestServiceProxyTest {
                 "		\"plateNumber\": \"The plate number\"                   " +
                 "	}                                                           ";
 
-        server.expect(requestTo(VehicleDataController.URL_MAPPING+"/"+ EXISTENT_VIN_CODE))
+        server.expect(requestTo(vehicleDataServiceUrl+"/"+ EXISTENT_VIN_CODE))
                 .andRespond(withSuccess(mockJsonResponse, MediaType.APPLICATION_JSON_UTF8));
 
 

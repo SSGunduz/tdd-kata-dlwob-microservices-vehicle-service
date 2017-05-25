@@ -1,7 +1,7 @@
 package com.tdd.katas.dlwob.microservices.vehicleservice.service;
 
-import com.tdd.katas.dlwob.microservices.vehicleservice.controller.VehicleDataController;
 import com.tdd.katas.dlwob.microservices.vehicleservice.model.VehicleData;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +16,13 @@ import org.springframework.web.client.RestTemplate;
 @Component
 class VehicleDataRestServiceProxy {
 
+    private final String vehicleDataServiceUrl;
     private RestTemplate restTemplate;
 
-    public VehicleDataRestServiceProxy(RestTemplateBuilder restTemplateBuilder){
+
+    public VehicleDataRestServiceProxy(RestTemplateBuilder restTemplateBuilder,
+                                       @Value("${services.vehicle-data-service.url}") String vehicleDataServiceUrl){
+        this.vehicleDataServiceUrl=vehicleDataServiceUrl;
         restTemplate = restTemplateBuilder.build();
     }
 
@@ -26,7 +30,7 @@ class VehicleDataRestServiceProxy {
         ResponseEntity<VehicleData> response;
 
         try{
-            response =restTemplate.getForEntity(VehicleDataController.URL_MAPPING+"/"+vinCode, VehicleData.class);
+            response =restTemplate.getForEntity(vehicleDataServiceUrl+"/"+vinCode, VehicleData.class);
 
 
         }catch (HttpClientErrorException e) {

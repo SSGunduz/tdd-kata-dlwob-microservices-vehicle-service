@@ -10,6 +10,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -27,9 +28,10 @@ public class PartDataRestServiceProxy {
 
     public List<PartData> getPartDataList(String vinCode) throws HttpServerErrorException, HttpClientErrorException{
 
+        ResponseEntity<PartData[]> response;
          try{
 
-             restTemplate.getForEntity(PartDataController.URL_MAPPING+"/"+vinCode, PartData[].class);
+             response = restTemplate.getForEntity(PartDataController.URL_MAPPING + "/" + vinCode, PartData[].class);
          }catch(HttpClientErrorException e)
          {
              if(e.getStatusCode().equals(HttpStatus.NOT_FOUND))
@@ -38,7 +40,7 @@ public class PartDataRestServiceProxy {
                  throw e;
          }
 
-         throw new UnsupportedOperationException("Not Implemented");
+         return Arrays.asList(response.getBody());
 
     }
 

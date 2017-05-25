@@ -25,11 +25,17 @@ public class CustomerDataController {
     @GetMapping("/{customerId}")
     public ResponseEntity<CustomerData> getCustomerData(@PathVariable String customerId){
 
+        CustomerData customerData;
+
         try{
-            service.getCustomerData(customerId);
+            customerData=service.getCustomerData(customerId);
         }catch (Exception e){
+
             return new ResponseEntity<CustomerData>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
+        if(customerData==null)
+                return new ResponseEntity<CustomerData>(HttpStatus.NOT_FOUND);
 
         throw new UnsupportedOperationException("Not Implemented");
 

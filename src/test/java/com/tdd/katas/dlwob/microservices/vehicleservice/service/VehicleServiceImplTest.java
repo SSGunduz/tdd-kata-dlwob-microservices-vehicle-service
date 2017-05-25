@@ -12,9 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
@@ -129,8 +127,24 @@ public class VehicleServiceImplTest {
         verify(vehicleDataRestServiceProxy).getVehicleData(AN_EXISTENT_VIN);
         verify(partDataRestServiceProxy).getPartDataList(AN_EXISTENT_VIN);
 
-
     }
 
+    @Test
+    public void Throws_an_exception_when_sub_service_error(){
+
+        final String AN_EXISTENT_VIN="AN_EXISTENT_VIN";
+
+        given(vehicleCustomerDataService.getVehicleCustomerData(AN_EXISTENT_VIN)).willThrow(new RuntimeException("Mock Exception"));
+
+        try{
+            VehicleInformation actualVehicleInformation= vehicleService.getVehicleInformation(AN_EXISTENT_VIN);
+            fail("Should have thrown an exception");
+        }catch (Exception e){
+            //Test is ok
+        }
+
+        verify(vehicleCustomerDataService).getVehicleCustomerData(AN_EXISTENT_VIN);
+
+    }
 
 }

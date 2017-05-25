@@ -55,6 +55,23 @@ public class PartDataRestServiceProxyTest {
         server.verify();
     }
 
+    @Test
+    public void Throws_exception_when_server_error(){
 
+        final String ANY_VIN_CODE="ANY_VIN_CODE";
+
+        server.expect(requestTo(PartDataController.URL_MAPPING+"/"+ ANY_VIN_CODE))
+                .andRespond(withStatus(HttpStatus.INTERNAL_SERVER_ERROR));
+
+        try{
+            proxy.getPartDataList(ANY_VIN_CODE);
+            fail("Should have thrown an exception");
+        }catch (HttpServerErrorException e){
+            // Test is ok
+        }
+
+        server.verify();
+
+    }
 
 }

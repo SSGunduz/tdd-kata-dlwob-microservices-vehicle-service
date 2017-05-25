@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class PartDataRestServiceProxy {
     }
 
 
-    public List<PartData> getPartDataList(String vinCode) {
+    public List<PartData> getPartDataList(String vinCode) throws HttpServerErrorException{
 
          try{
 
@@ -40,4 +41,6 @@ public class PartDataRestServiceProxy {
          throw new UnsupportedOperationException("Not Implemented");
 
     }
+
+
 }

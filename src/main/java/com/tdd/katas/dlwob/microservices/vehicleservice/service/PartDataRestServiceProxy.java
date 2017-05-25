@@ -25,7 +25,7 @@ public class PartDataRestServiceProxy {
     }
 
 
-    public List<PartData> getPartDataList(String vinCode) throws HttpServerErrorException{
+    public List<PartData> getPartDataList(String vinCode) throws HttpServerErrorException, HttpClientErrorException{
 
          try{
 

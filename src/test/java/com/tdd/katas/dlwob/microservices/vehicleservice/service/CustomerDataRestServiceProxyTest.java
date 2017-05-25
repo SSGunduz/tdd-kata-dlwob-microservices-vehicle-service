@@ -75,5 +75,23 @@ public class CustomerDataRestServiceProxyTest {
 
     }
 
+    @Test
+    public void Throws_exception_when_client_error(){
+
+        final String ANY_CUSTOMER_ID="ANY_CUSTOMER_ID";
+
+        server.expect(requestTo(CustomerDataController.URL_MAPPING+"/"+ ANY_CUSTOMER_ID))
+                .andRespond(withStatus(HttpStatus.BAD_REQUEST));
+
+        try{
+            proxy.getCustomerData(ANY_CUSTOMER_ID);
+            fail("Should have thrown an exception");
+        }catch (HttpClientErrorException e){
+            // Test is ok
+        }
+
+        server.verify();
+
+    }
 
 }

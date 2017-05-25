@@ -23,7 +23,7 @@ public class CustomerDataRestServiceProxy {
         restTemplate=restTemplateBuilder.build();
     }
 
-    public CustomerData getCustomerData(String customerId) throws HttpServerErrorException {
+    public CustomerData getCustomerData(String customerId) throws HttpServerErrorException, HttpClientErrorException {
         try{
             restTemplate.getForEntity(CustomerDataController.URL_MAPPING+"/"+customerId,CustomerData.class);
         }catch(HttpClientErrorException e){

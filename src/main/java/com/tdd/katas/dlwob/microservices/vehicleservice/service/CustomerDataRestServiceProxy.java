@@ -7,6 +7,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,7 +23,7 @@ public class CustomerDataRestServiceProxy {
         restTemplate=restTemplateBuilder.build();
     }
 
-    public CustomerData getCustomerData(String customerId) {
+    public CustomerData getCustomerData(String customerId) throws HttpServerErrorException {
         try{
             restTemplate.getForEntity(CustomerDataController.URL_MAPPING+"/"+customerId,CustomerData.class);
         }catch(HttpClientErrorException e){

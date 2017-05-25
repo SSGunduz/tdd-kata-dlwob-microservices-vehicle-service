@@ -41,20 +41,39 @@ public class CustomerDataRestServiceProxyTest {
      */
 
     @Test
-    public void Returns_null_when_server_returns_404(){
+    public void Returns_null_when_server_returns_404() {
 
-        final String NON_EXISTENT_CUSTOMER_ID="NON_EXISTENT_CUSTOMER_ID";
+        final String NON_EXISTENT_CUSTOMER_ID = "NON_EXISTENT_CUSTOMER_ID";
 
-        server.expect(requestTo(CustomerDataController.URL_MAPPING+"/"+NON_EXISTENT_CUSTOMER_ID))
+        server.expect(requestTo(CustomerDataController.URL_MAPPING + "/" + NON_EXISTENT_CUSTOMER_ID))
                 .andRespond(withStatus(HttpStatus.NOT_FOUND));
 
-        CustomerData customerData=proxy.getCustomerData(NON_EXISTENT_CUSTOMER_ID);
+        CustomerData customerData = proxy.getCustomerData(NON_EXISTENT_CUSTOMER_ID);
 
         assertNull(customerData);
 
         server.verify();
     }
 
+    @Test
+    public void Throws_exception_when_server_error() {
+
+        final String ANY_CUSTOMER_ID = "ANY_CUSTOMER_ID";
+
+        server.expect(requestTo(CustomerDataController.URL_MAPPING + "/" + ANY_CUSTOMER_ID))
+                .andRespond(withStatus(HttpStatus.INTERNAL_SERVER_ERROR));
+
+        try {
+            proxy.getCustomerData(ANY_CUSTOMER_ID);
+            fail("Should have thrown an exception");
+        } catch (HttpServerErrorException e) {
+            // Test is ok
+        }
+
+        server.verify();
+
+
+    }
 
 
 }

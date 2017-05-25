@@ -1,5 +1,6 @@
 package com.tdd.katas.dlwob.microservices.vehicleservice.controller;
 
+import com.tdd.katas.dlwob.microservices.vehicleservice.model.CustomerData;
 import com.tdd.katas.dlwob.microservices.vehicleservice.service.CustomerDataService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -61,5 +62,27 @@ public class CustomerDataControllerTest {
                 .andExpect(status().isNotFound());
 
         verify(customerDataService).getCustomerData(NON_EXISTENT_CUSTOMER_ID);
+    }
+
+    @Test
+    public void Returns_valid_data_for_existent_customer_id() throws Exception{
+
+        final String EXISTENT_CUSTOMER_ID="EXISTENT_CUSTOMER_ID";
+
+        CustomerData expectedCustomerData=new CustomerData();
+
+        expectedCustomerData.setId(EXISTENT_CUSTOMER_ID);
+        expectedCustomerData.setName("Any name");
+        expectedCustomerData.setSurnames("Any surname");
+
+        given(customerDataService.getCustomerData(EXISTENT_CUSTOMER_ID)).willReturn(expectedCustomerData);
+
+        mockMvc
+                .perform(
+                        get(CustomerDataController.URL_MAPPING+"/{customerId}",EXISTENT_CUSTOMER_ID)
+                )
+                .andExpect(status().isOk());
+
+        verify(customerDataService).getCustomerData(EXISTENT_CUSTOMER_ID);
     }
 }

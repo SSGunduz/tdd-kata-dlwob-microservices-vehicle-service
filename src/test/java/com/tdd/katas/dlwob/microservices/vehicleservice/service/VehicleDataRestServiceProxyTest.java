@@ -4,13 +4,16 @@ import com.tdd.katas.dlwob.microservices.vehicleservice.controller.VehicleDataCo
 import com.tdd.katas.dlwob.microservices.vehicleservice.model.VehicleData;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.omg.PortableInterceptor.NON_EXISTENT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.client.MockRestServiceServer;
+import org.springframework.web.client.HttpServerErrorException;
 
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
 
@@ -47,6 +50,25 @@ public class VehicleDataRestServiceProxyTest {
         assertNull(vehicleData);
 
         server.verify();
+    }
+
+    @Test
+    public void Throws_exception_when_server_error(){
+
+        final String ANY_VIN_CODE="ANY_VIN_CODE";
+
+        server.expect(requestTo(VehicleDataController.URL_MAPPING+"/"+ ANY_VIN_CODE))
+                .andRespond(withStatus(HttpStatus.INTERNAL_SERVER_ERROR));
+
+        try{
+            proxy.getVehicleData(ANY_VIN_CODE);
+            fail("Should have thrown an exception");
+        }catch (HttpServerErrorException e){
+            // Test is ok
+        }
+
+        server.verify();
+
     }
 
 }

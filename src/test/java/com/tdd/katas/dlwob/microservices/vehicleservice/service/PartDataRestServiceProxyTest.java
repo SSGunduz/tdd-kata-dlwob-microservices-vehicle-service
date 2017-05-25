@@ -93,4 +93,38 @@ public class PartDataRestServiceProxyTest {
 
     }
 
+    @Test
+    public void Returns_valid_data_when_server_provides_valid_data(){
+
+        final String EXISTENT_VIN_CODE="EXISTENT_VIN_CODE";
+
+        String mockJsonResponse=
+                        "	[                                                                    "+
+                        "			{\"id\":\"part0\", \"description\":\"part0 description\"},   "+
+                        "			{\"id\":\"part1\", \"description\":\"part1 description\"},   "+
+                        "			{\"id\":\"part2\", \"description\":\"part2 description\"}    "+
+                        "	]                                                                    ";
+
+        server.expect(requestTo(PartDataController.URL_MAPPING+"/"+ EXISTENT_VIN_CODE))
+                .andRespond(withSuccess(mockJsonResponse, MediaType.APPLICATION_JSON_UTF8));
+
+
+        List<PartData> actualPartDataList=proxy.getPartDataList(EXISTENT_VIN_CODE);
+
+        assertNotNull(actualPartDataList);
+        assertEquals(3,actualPartDataList.size());
+        assertEquals("part0",actualPartDataList.get(0).getId());
+        assertEquals("part0 description",actualPartDataList.get(0).getDescription());
+
+        assertEquals("part1",actualPartDataList.get(1).getId());
+        assertEquals("part1 description",actualPartDataList.get(1).getDescription());
+
+        assertEquals("part2",actualPartDataList.get(2).getId());
+        assertEquals("part2 description",actualPartDataList.get(2).getDescription());
+
+        server.verify();
+
+    }
+
+
 }

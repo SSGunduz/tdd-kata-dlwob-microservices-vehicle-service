@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -107,7 +108,7 @@ public class VehicleServiceImplTest {
 
         VehicleInformation actualVehicleInformation= vehicleService.getVehicleInformation(AN_EXISTENT_VIN);
 
-        assertNull(actualVehicleInformation);
+        assertNotNull(actualVehicleInformation);
         assertEquals(AN_EXISTENT_VIN,actualVehicleInformation.getVin());
         assertEquals(expectedVehicleData.getModelId(),actualVehicleInformation.getVehicleData().getModelId());
         assertEquals(expectedVehicleData.getPlateNumber(),actualVehicleInformation.getVehicleData().getPlateNumber());

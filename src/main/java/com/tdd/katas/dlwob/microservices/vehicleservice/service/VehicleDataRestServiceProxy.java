@@ -37,7 +37,8 @@ class VehicleDataRestServiceProxy {
                 throw e;
         }
 
-        throw new UnsupportedOperationException("Not implemented");
+        return response.getBody();
+
 
     }
 

@@ -5,12 +5,13 @@ import com.tdd.katas.dlwob.microservices.vehicleservice.model.VehicleCustomerDat
 /**
  * Created by Hexad GmbH on 24/05/2017.
  */
-public class MockVehicleCustomerDataServiceImpl extends AbstractMockServiceImpl<VehicleCustomerData> {
+public class MockVehicleCustomerDataServiceImpl extends AbstractMockServiceImpl<VehicleCustomerData> implements VehicleCustomerDataService {
 
     public MockVehicleCustomerDataServiceImpl() {
         super(VehicleCustomerData.class);
     }
 
+    @Override
     public VehicleCustomerData getVehicleCustomerData(String vinCode) {
         if(MockServicesConstants.SAMPLE_VEHICLE_VIN_CODE.equals(vinCode))
             return dtoObject;

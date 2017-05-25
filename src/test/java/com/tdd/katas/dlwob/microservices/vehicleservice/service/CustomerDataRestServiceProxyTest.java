@@ -1,12 +1,10 @@
 package com.tdd.katas.dlwob.microservices.vehicleservice.service;
 
-import com.tdd.katas.dlwob.microservices.vehicleservice.controller.CustomerDataController;
-import com.tdd.katas.dlwob.microservices.vehicleservice.controller.VehicleDataController;
 import com.tdd.katas.dlwob.microservices.vehicleservice.model.CustomerData;
-import com.tdd.katas.dlwob.microservices.vehicleservice.model.VehicleData;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,6 +25,9 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 @RestClientTest(CustomerDataRestServiceProxy.class)
 public class CustomerDataRestServiceProxyTest {
 
+    @Value("${services.customer-data-service.url}")
+    private String customerDataServiceUrl;
+
     @Autowired
     private MockRestServiceServer server;
 
@@ -45,7 +46,7 @@ public class CustomerDataRestServiceProxyTest {
 
         final String NON_EXISTENT_CUSTOMER_ID = "NON_EXISTENT_CUSTOMER_ID";
 
-        server.expect(requestTo(CustomerDataController.URL_MAPPING + "/" + NON_EXISTENT_CUSTOMER_ID))
+        server.expect(requestTo(customerDataServiceUrl + "/" + NON_EXISTENT_CUSTOMER_ID))
                 .andRespond(withStatus(HttpStatus.NOT_FOUND));
 
         CustomerData customerData = proxy.getCustomerData(NON_EXISTENT_CUSTOMER_ID);
@@ -60,7 +61,7 @@ public class CustomerDataRestServiceProxyTest {
 
         final String ANY_CUSTOMER_ID = "ANY_CUSTOMER_ID";
 
-        server.expect(requestTo(CustomerDataController.URL_MAPPING + "/" + ANY_CUSTOMER_ID))
+        server.expect(requestTo(customerDataServiceUrl + "/" + ANY_CUSTOMER_ID))
                 .andRespond(withStatus(HttpStatus.INTERNAL_SERVER_ERROR));
 
         try {
@@ -80,7 +81,7 @@ public class CustomerDataRestServiceProxyTest {
 
         final String ANY_CUSTOMER_ID="ANY_CUSTOMER_ID";
 
-        server.expect(requestTo(CustomerDataController.URL_MAPPING+"/"+ ANY_CUSTOMER_ID))
+        server.expect(requestTo(customerDataServiceUrl+"/"+ ANY_CUSTOMER_ID))
                 .andRespond(withStatus(HttpStatus.BAD_REQUEST));
 
         try{
@@ -106,7 +107,7 @@ public class CustomerDataRestServiceProxyTest {
                         "		\"surnames\": \"Surnames\"                   " +
                         "	}                                                ";
 
-        server.expect(requestTo(CustomerDataController.URL_MAPPING+"/"+ EXISTENT_CUSTOMER_ID))
+        server.expect(requestTo(customerDataServiceUrl+"/"+ EXISTENT_CUSTOMER_ID))
                 .andRespond(withSuccess(mockJsonResponse, MediaType.APPLICATION_JSON_UTF8));
 
 

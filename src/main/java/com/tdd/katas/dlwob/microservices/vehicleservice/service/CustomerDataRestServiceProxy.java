@@ -1,15 +1,13 @@
 package com.tdd.katas.dlwob.microservices.vehicleservice.service;
 
-import com.tdd.katas.dlwob.microservices.vehicleservice.controller.CustomerDataController;
 import com.tdd.katas.dlwob.microservices.vehicleservice.model.CustomerData;
-import com.tdd.katas.dlwob.microservices.vehicleservice.model.VehicleData;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -20,7 +18,11 @@ public class CustomerDataRestServiceProxy {
 
     private RestTemplate restTemplate;
 
-    public CustomerDataRestServiceProxy(RestTemplateBuilder restTemplateBuilder){
+    private String customerDataServiceUrl;
+
+    public CustomerDataRestServiceProxy(RestTemplateBuilder restTemplateBuilder,
+                                        @Value("${services.customer-data-service.url}") String customerDataServiceUrl){
+        this.customerDataServiceUrl=customerDataServiceUrl;
         restTemplate=restTemplateBuilder.build();
     }
 
@@ -30,7 +32,7 @@ public class CustomerDataRestServiceProxy {
 
         try{
 
-            response=restTemplate.getForEntity(CustomerDataController.URL_MAPPING+"/"+customerId,CustomerData.class);
+            response=restTemplate.getForEntity(customerDataServiceUrl+"/"+customerId,CustomerData.class);
 
         }catch(HttpClientErrorException e){
 

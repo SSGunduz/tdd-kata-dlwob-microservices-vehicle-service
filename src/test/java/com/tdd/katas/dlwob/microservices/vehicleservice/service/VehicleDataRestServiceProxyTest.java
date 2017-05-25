@@ -8,15 +8,16 @@ import org.omg.PortableInterceptor.NON_EXISTENT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 /**
  * Created by Hexad GmbH on 25/05/2017.
@@ -90,5 +91,31 @@ public class VehicleDataRestServiceProxyTest {
         server.verify();
 
     }
+
+    @Test
+    public void Returns_valid_data_when_server_provides_valid_data(){
+
+        final String EXISTENT_VIN_CODE="EXISTENT_VIN_CODE";
+
+        String mockJsonResponse=
+                "	{															" +
+                "		\"modelId\": \"The model\",                             " +
+                "		\"plateNumber\": \"The plate number\"                   " +
+                "	}                                                           ";
+
+        server.expect(requestTo(VehicleDataController.URL_MAPPING+"/"+ EXISTENT_VIN_CODE))
+                .andRespond(withSuccess(mockJsonResponse, MediaType.APPLICATION_JSON_UTF8));
+
+
+        VehicleData actualVehicleData=proxy.getVehicleData(EXISTENT_VIN_CODE);
+
+        assertNotNull(actualVehicleData);
+        assertEquals("The model",actualVehicleData.getModelId());
+        assertEquals("The plate number",actualVehicleData.getPlateNumber());
+
+        server.verify();
+
+    }
+
 
 }

@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.client.MockRestServiceServer;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 
 import static org.junit.Assert.assertNull;
@@ -64,6 +65,25 @@ public class VehicleDataRestServiceProxyTest {
             proxy.getVehicleData(ANY_VIN_CODE);
             fail("Should have thrown an exception");
         }catch (HttpServerErrorException e){
+            // Test is ok
+        }
+
+        server.verify();
+
+    }
+
+    @Test
+    public void Throws_exception_when_client_error(){
+
+        final String ANY_VIN_CODE="ANY_VIN_CODE";
+
+        server.expect(requestTo(VehicleDataController.URL_MAPPING+"/"+ ANY_VIN_CODE))
+                .andRespond(withStatus(HttpStatus.BAD_REQUEST));
+
+        try{
+            proxy.getVehicleData(ANY_VIN_CODE);
+            fail("Should have thrown an exception");
+        }catch (HttpClientErrorException e){
             // Test is ok
         }
 
